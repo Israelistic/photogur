@@ -1,3 +1,5 @@
 `<h1>Pictures</h1>`
-<h1>This is picture index</h1>
-<h2>app/views/pictures</h2>
+<% @pictures.each do |picture| %>
+  <p><%= picture.title %>, <%= picture.artist %></p>
+  <img src="<%= picture.url %>" alt="<%= picture.title %>">
+<% end %>
