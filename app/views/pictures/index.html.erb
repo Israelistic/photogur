@@ -1,8 +1,31 @@
-`<h1>Pictures</h1>`
-  <h1>Pictures (<%= @pictures.length %>)</h1>
-  <%= link_to("New Picture", "/pictures/new") %>
 
-  <% @pictures.each do |picture| %>
-  <p><%= picture.title %>, <%= picture.artist %></p>
-  <%= link_to(image_tag(picture.url), "/pictures/#{picture.id}") %>
-<% end %>
+<h1>Most recent pictures</h1>
+<p><%= link_to("Add NEW PICTURE", pictures_new_url) %></p>
+<ul>
+  <% @most_recent_pictures.each do |picture| %>
+    <li><%= picture.title %></li>
+      <%= link_to(image_tag(picture.url), "/pictures/#{picture.id}")%>
+  <% end %>
+</ul>
+<ul>
+  <% @last_month_pictures.each do |picture | %>
+  <%= link_to(image_tag(picture.url), "/pictures/#{picture.id}")%>
+  <% end %>
+  <% @date = Date.today  %>
+
+<p>  <%= "Count of pictures: (#{@last_month_pictures.length}) #{@date.strftime("%B")}"%></p>
+</ul>
+<ul>
+  <% @pictures_in_year.each do |picture | %>
+    <%= link_to(image_tag(picture.url), "/pictures/#{picture.id}")%>
+  <% end %>
+  <hr>
+</ul>
+<h2>Picture from the past</h2>
+<ul>
+  <% @pictures_from_last_year.each do |picture | %>
+    <%= link_to(image_tag(picture.url), "/pictures/#{picture.id}")%>
+  <p>  <%= picture.created_at.year %> </p>
+  <% end %>
+  <hr>
+</ul>
