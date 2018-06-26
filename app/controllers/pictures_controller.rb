@@ -1,6 +1,6 @@
 class PicturesController < ApplicationController
-
-
+    before_action :ensure_logged_in, except: [:show, :index]
+# run the  mentiond method before executing the code 
     def index
         @most_recent_pictures = Picture.most_recent_five
         @pictures_in_year = Picture.pictures_created_in_year(Time.now.year)

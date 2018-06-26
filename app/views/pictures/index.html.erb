@@ -1,6 +1,9 @@
 
 <h1>Most recent pictures</h1>
+<!-- The current user verify that the user is logged in and if it does it will display the link -->
+<% if current_user %>
 <p><%= link_to("ADD NEW PICTURE", pictures_new_url) %></p>
+<% end%>
 <ul>
   <% @most_recent_pictures.each do |picture| %>
     <li><%= picture.title %></li>
