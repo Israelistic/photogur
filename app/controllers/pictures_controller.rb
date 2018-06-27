@@ -1,9 +1,8 @@
 class PicturesController < ApplicationController
     before_action :ensure_logged_in, except: [:show, :index]
-      # before_action :new_picture, only: [:new, :create]
-    # before_action :load_picture, only: [:show, :edit, :update, :destroy]
-    # before_action :ensure_user_owns_picture, only: [:edit, :update, :destroy]
-
+    before_action :load_picture, only: [:show, :edit, :update, :destroy]
+    before_action :ensure_user_owns_picture, only: [:edit, :update, :destroy]
+     # before_action :new_picture, only: [:new, :create]
 # run the  mentiond method before executing the code
     def index
         @most_recent_pictures = Picture.most_recent_five
@@ -35,10 +34,10 @@ class PicturesController < ApplicationController
          end
      end
      def edit
-         @picture = Picture.find(params[:id])
+         # @picture = Picture.find(params[:id])
      end
      def update
-        @picture = Picture.find(params[:id])
+        # @picture = Picture.find(params[:id])
         @picture.title = params[:picture][:title]
         @picture.artist = params[:picture][:artist]
         @picture.url = params[:picture][:url]
@@ -49,17 +48,17 @@ class PicturesController < ApplicationController
         end
     end
     def destroy
-        @picture = Picture.find(params[:id])
+        # @picture = Picture.find(params[:id])
         @picture.destroy
         redirect_to "/pictures"
     end
-    # def ensure_user_owns_picture
-    #   if current_user == nil
-    #     flash[:alert] = "Please log in."
-    #     redirect_to new_sessions_path
-    #   elsif current_user != @picture.user
-    #     flash[:alert] = "Sorry, you do not have access to this picture."
-    #     redirect_to picture_path
-    #   end
-    # end
+    def load_picture
+        @picture = Picture.find(params[:id])
+    end
+    def ensure_user_owns_picture
+        unless current_user == @picture.user
+            flash[:alert] = "Please log in"
+            redirect_to new_session_url
+        end
+    end
 end
